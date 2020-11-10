@@ -12,27 +12,180 @@ local PlexusAutoFrameSize = Plexus:NewModule("PlexusAutoFrameSize", "AceBucket-3
 local PlexusFrame = Plexus:GetModule("PlexusFrame")
 
 PlexusAutoFrameSize.defaultDB = {
+    enable = false,
     width = {
         One = 60,
-        Two = 55,
-        Three = 75,
-        Four = 80,
-        Five = 60,
-        Six = 50,
-        Seven = 40,
-        Eight = 37,
+        Two = 50,
+        Three = 40,
+        Four = 30,
+        Five = 30,
+        Six = 30,
+        Seven = 30,
+        Eight = 30,
     },
     height = {
         One = 60,
-        Two = 55,
-        Three = 75,
-        Four = 80,
-        Five = 60,
-        Six = 50,
-        Seven = 40,
-        Eight = 37,
+        Two = 50,
+        Three = 40,
+        Four = 30,
+        Five = 30,
+        Six = 30,
+        Seven = 30,
+        Eight = 30,
     },
 }
+
+local options = {
+    type = "group",
+    name = "PlexusAutoFrameSize",
+    desc = "PlexusAutoFrameSize",
+    get = function(info)
+        local k = info[#info]
+        return PlexusAutoFrameSize.db.profile[k]
+    end,
+    set = function(info, v)
+        local k = info[#info]
+        PlexusAutoFrameSize.db.profile[k] = v
+        PlexusAutoFrameSize:toggle()
+    end,
+    childGroups = "tab",
+    args = {
+        enable = {
+            name = "Enable Auto Resizing Note: this will start right away make sure your sizes are right!",
+            desc = "Enable Auto Resizing Note: this will start right away make sure your sizes are right!",
+            order = 1, width = "double",
+            type = "toggle",
+        },
+        width = {
+            name = "Width",
+            order = 1,
+            type = "group",
+            get = function(info)
+                local k = info[#info]
+                return PlexusAutoFrameSize.db.profile.width[k]
+            end,
+            set = function(info, v)
+                local k = info[#info]
+                PlexusAutoFrameSize.db.profile.width[k] = v
+            end,
+            args = {
+                One = {
+                    name = "One Group",
+                    desc = "",
+                    order = 1, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Two = {
+                    name = "Two Groups",
+                    desc = "",
+                    order = 2, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Three = {
+                    name = "Three Groups",
+                    desc = "",
+                    order = 3, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Four = {
+                    name = "Four Groups",
+                    desc = "",
+                    order = 4, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Five = {
+                    name = "Five Groups",
+                    desc = "",
+                    order = 5, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Six = {
+                    name = "Six Groups",
+                    desc = "",
+                    order = 6, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Seven = {
+                    name = "Seven Groups",
+                    desc = "",
+                    order = 7, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Eight = {
+                    name = "Eight Groups",
+                    desc = "",
+                    order = 8, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+            },
+        },
+        height = {
+            name = "Height",
+            order = 2,
+            type = "group",
+            get = function(info)
+                local k = info[#info]
+                return PlexusAutoFrameSize.db.profile.height[k]
+            end,
+            set = function(info, v)
+                local k = info[#info]
+                PlexusAutoFrameSize.db.profile.height[k] = v
+            end,
+            args = {
+                One = {
+                    name = "One Group",
+                    desc = "",
+                    order = 1, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Two = {
+                    name = "Two Groups",
+                    desc = "",
+                    order = 2, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Three = {
+                    name = "Three Groups",
+                    desc = "",
+                    order = 3, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Four = {
+                    name = "Four Groups",
+                    desc = "",
+                    order = 4, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Five = {
+                    name = "Five Groups",
+                    desc = "",
+                    order = 5, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Six = {
+                    name = "Six Groups",
+                    desc = "",
+                    order = 6, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Seven = {
+                    name = "Seven Groups",
+                    desc = "",
+                    order = 7, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+                Eight = {
+                    name = "Eight Groups",
+                    desc = "",
+                    order = 8, width = "double",
+                    type = "range", min = 10, max = 100, step = 1,
+                },
+            },
+        },
+    },
+}
+
+(Plexus or PlexusFrame).options.args.PlexusAutoFrameSize = options;
 
 local function getRaidSize()
     local maxGroups = 1
@@ -58,138 +211,42 @@ function PlexusAutoFrameSize:OnInitialize()
 end
 
 function PlexusAutoFrameSize:OnEnable()
-    local opt = Plexus.options.args
-    opt["PlexusAutoFrameSize"] = {
-        type = "group",
-        name = "PlexusAutoFrameSize",
-        desc = "PlexusAutoFrameSize",
-        childGroups = "tab",
-        args = {
-            width = {
-                name = "Width",
-                order = 1,
-                type = "group",
-                args = {
-                    One = {
-                        name = "One Group",
-                        desc = "",
-                        order = 1, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Two = {
-                        name = "Two Groups",
-                        desc = "",
-                        order = 2, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Three = {
-                        name = "Three Groups",
-                        desc = "",
-                        order = 3, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Four = {
-                        name = "Four Groups",
-                        desc = "",
-                        order = 4, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Five = {
-                        name = "Five Groups",
-                        desc = "",
-                        order = 5, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Six = {
-                        name = "Six Groups",
-                        desc = "",
-                        order = 6, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Seven = {
-                        name = "Seven Groups",
-                        desc = "",
-                        order = 7, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Eight = {
-                        name = "Eight Groups",
-                        desc = "",
-                        order = 8, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                },
-            },
-            height = {
-                name = "Height",
-                order = 2,
-                type = "group",
-                args = {
-                    One = {
-                        name = "One Group",
-                        desc = "",
-                        order = 1, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Two = {
-                        name = "Two Groups",
-                        desc = "",
-                        order = 2, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Three = {
-                        name = "Three Groups",
-                        desc = "",
-                        order = 3, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Four = {
-                        name = "Four Groups",
-                        desc = "",
-                        order = 4, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Five = {
-                        name = "Five Groups",
-                        desc = "",
-                        order = 5, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Six = {
-                        name = "Six Groups",
-                        desc = "",
-                        order = 6, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Seven = {
-                        name = "Seven Groups",
-                        desc = "",
-                        order = 7, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                    Eight = {
-                        name = "Eight Groups",
-                        desc = "",
-                        order = 8, width = "double",
-                        type = "range", min = 10, max = 100, step = 1,
-                    },
-                },
-            },
-        },
-    }
 
   self.super.OnEnable(self)
 
   self:RegisterMessage("Plexus_EnteringCombat", "InCombat")
+  --self:RegisterEvent("PLAYER_REGEN_DISABLED", "InCombat")
   self:RegisterMessage("Plexus_LeavingCombat", "OutofCombat")
+  --self:RegisterEvent("PLAYER_REGEN_ENABLED", "InCombat")
+  self:RegisterEvent("PLAYER_ENTERING_WORLD", "EnterWorld")
 
 end
 
-local function CheckRoster() --luacheck: ignore 211
-    if InCombatLockdown() then
-        PlexusFrame:CancelAllTimers()
-        return
+function PlexusAutoFrameSize:EnterWorld(event, isLogin, isReload) --luacheck: ignore 212
+    --print("EnterWorld")
+    --print(event, isLogin, isReload)
+    if isLogin then
+        if not PlexusAutoFrameSize.db.profile.enable then self:CancelAllTimers() return end
+        if PlexusAutoFrameSize.db.profile.enable then
+            self:CancelAllTimers()
+            self.CheckRosterTimer = self:ScheduleRepeatingTimer("CheckRoster", 2)
+        end
     end
+end
+
+function PlexusAutoFrameSize:toggle()
+    --print("toggle")
+    if not PlexusAutoFrameSize.db.profile.enable then self:CancelAllTimers() return end
+    if PlexusAutoFrameSize.db.profile.enable then
+        self:CancelAllTimers()
+        self.CheckRosterTimer = self:ScheduleRepeatingTimer("CheckRoster", 2)
+    end
+end
+
+function PlexusAutoFrameSize:CheckRoster() --luacheck: ignore 212
+    --print("Check roster Running")
+    if not PlexusAutoFrameSize.db.profile.enable then return end
+
     local height
     local width
 
@@ -236,21 +293,26 @@ local function CheckRoster() --luacheck: ignore 211
 
 end
 
-local function OutofCombat() --luacheck: ignore 211
-
-    if not InCombatLockdown() then
-        if not PlexusAutoFrameSize.CheckRosterTimer or PlexusAutoFrameSize.CheckRosterTimer == 0 then
-            PlexusAutoFrameSize.CheckRosterTimer = PlexusFrame:ScheduleRepeatingTimer("CheckRoster", 2)
-        end
-    end
+function PlexusAutoFrameSize:OutofCombat() --luacheck: ignore 212
+    --print("Plexus_LeavingCombat")
+    --print("OutofCombat: ", InCombatLockdown())
+    if not PlexusAutoFrameSize.db.profile.enable then self:CancelAllTimers() return end
+    --if InCombatLockdown() ~= 1 then
+        --if not self.CheckRosterTimer or self.CheckRosterTimer == 0 then
+            self:CancelAllTimers()
+            self.CheckRosterTimer = self:ScheduleRepeatingTimer("CheckRoster", 2)
+        --end
+    --end
 
 end
 
-local function InCombat() --luacheck: ignore 211
+function PlexusAutoFrameSize:InCombat() --luacheck: ignore 212
+    --print("Plexus_EnteringCombat")
+    --print("InCombat: ", InCombatLockdown())
 
-    if InCombatLockdown() then
-        PlexusFrame:CancelAllTimers()
-    end
+    --if InCombatLockdown() == 1 then
+        self:CancelAllTimers()
+    --end
 
 end
 
