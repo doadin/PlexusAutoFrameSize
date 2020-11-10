@@ -1,0 +1,28 @@
+﻿#@retail@
+## Interface: 90001
+#@end-retail@
+#@non-retail@
+## Interface: 11305
+#@end-non-retail@
+## Version: @project-version@
+
+## Notes: Plexus Auto FrameSize Per Raid Size.
+
+## Author: Doadin
+## X-Curse-Project-ID: 418810
+
+#@non-no-lib-strip@
+# ## Title: PlexusAutoFrameSize |cff1784d1[nolibs]|r
+# ## Dependencies: Ace3
+#@end-non-no-lib-strip@
+
+#@no-lib-strip@
+## Title: PlexusAutoFrameSize
+## OptionalDeps: Ace3
+## X-Embeds: Ace3
+
+Libs\AceTimer-3.0\AceTimer-3.0.xml
+Libs\AceEvent-3.0\AceEvent-3.0.xml
+Libs\AceBucket-3.0\AceBucket-3.0.xml
+
+PlexusAutoFrameSize.lua
