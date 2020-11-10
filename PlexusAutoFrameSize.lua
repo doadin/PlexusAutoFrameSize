@@ -5,7 +5,7 @@ local ceil = ceil --luacheck: ignore 113
 local GetNumSubgroupMembers = GetNumSubgroupMembers --luacheck: ignore 113
 local GetNumGroupMembers = GetNumGroupMembers --luacheck: ignore 113
 local GetRaidRosterInfo = GetRaidRosterInfo --luacheck: ignore 113
-local InCombatLockdown = InCombatLockdown --luacheck: ignore 113
+--local InCombatLockdown = InCombatLockdown --luacheck: ignore 113
 local IsInRaid = IsInRaid --luacheck: ignore 113
 
 local PlexusAutoFrameSize = Plexus:NewModule("PlexusAutoFrameSize", "AceBucket-3.0", "AceTimer-3.0")
@@ -53,8 +53,14 @@ local options = {
         enable = {
             name = "Enable Auto Resizing Note: this will start right away make sure your sizes are right!",
             desc = "Enable Auto Resizing Note: this will start right away make sure your sizes are right!",
-            order = 1, width = "double",
+            order = 1, width = "full",
             type = "toggle",
+        },
+        description = {
+            name = "Note: Once Enabled this will start right away make sure your sizes are right!",
+            order = 2, width = "full",
+            fontSize = "large",
+            type = "description",
         },
         width = {
             name = "Width",
