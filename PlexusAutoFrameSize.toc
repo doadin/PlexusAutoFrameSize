@@ -13,7 +13,7 @@
 
 #@non-no-lib-strip@
 # ## Title: PlexusAutoFrameSize |cff1784d1[nolibs]|r
-# ## Dependencies: Ace3
+# ## Dependencies: Plexus, Ace3
 #@end-non-no-lib-strip@
 
 #@no-lib-strip@
