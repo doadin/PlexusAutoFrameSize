@@ -10,6 +10,8 @@ local IsInRaid = IsInRaid --luacheck: ignore 113
 
 local PlexusAutoFrameSize = Plexus:NewModule("PlexusAutoFrameSize", "AceBucket-3.0", "AceTimer-3.0")
 local PlexusFrame = Plexus:GetModule("PlexusFrame")
+--local PlexusLayoutManager = Plexus:GetModule("PlexusLayoutManager")
+local Layout = Plexus:GetModule("PlexusLayout")
 
 PlexusAutoFrameSize.defaultDB = {
     enable = false,
@@ -225,6 +227,7 @@ function PlexusAutoFrameSize:OnEnable()
   self:RegisterMessage("Plexus_LeavingCombat", "OutofCombat")
   --self:RegisterEvent("PLAYER_REGEN_ENABLED", "InCombat")
   self:RegisterEvent("PLAYER_ENTERING_WORLD", "EnterWorld")
+  self:RegisterMessage("Plexus_RosterUpdated", "CheckRoster")
 
 end
 
@@ -252,6 +255,7 @@ end
 function PlexusAutoFrameSize:CheckRoster() --luacheck: ignore 212
     --print("Check roster Running")
     if not PlexusAutoFrameSize.db.profile.enable then return end
+    if _G.InCombatLockdown() then return end
 
     local height
     local width
@@ -295,6 +299,8 @@ function PlexusAutoFrameSize:CheckRoster() --luacheck: ignore 212
         PlexusFrame.db.profile.frameHeight = height
         PlexusFrame:ResizeAllFrames()
         PlexusFrame:UpdateAllFrames()
+        --PlexusLayoutManager:UpdateLayouts("PlexusAutoFrameSize")
+        Layout:ReloadLayout()
     end
 
 end
