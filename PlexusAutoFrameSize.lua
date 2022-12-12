@@ -1,4 +1,4 @@
-﻿local Plexus = _G.Plexus
+local Plexus = _G.Plexus
 local select = select
 local max = max --luacheck: ignore 113
 local ceil = ceil --luacheck: ignore 113
@@ -15,6 +15,14 @@ local Layout = Plexus:GetModule("PlexusLayout")
 
 PlexusAutoFrameSize.defaultDB = {
     enable = false,
+    OneOrientation = "VERTICAL",
+    TwoOrientation = "VERTICAL",
+    ThreeOrientation = "VERTICAL",
+    FourOrientation = "VERTICAL",
+    FiveOrientation = "VERTICAL",
+    SixOrientation = "VERTICAL",
+    SevenOrientation = "VERTICAL",
+    EightOrientation = "VERTICAL",
     width = {
         One = 60,
         Two = 50,
@@ -63,6 +71,86 @@ local options = {
             order = 2, width = "full",
             fontSize = "large",
             type = "description",
+        },
+        OneOrientation = {
+            name = "One Group Orientation",
+            desc = "",
+            order = 3, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
+        },
+        TwoOrientation = {
+            name = "Two Group Orientation",
+            desc = "",
+            order = 4, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
+        },
+        ThreeOrientation = {
+            name = "Three Group Orientation",
+            desc = "",
+            order = 5, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
+        },
+        FourOrientation = {
+            name = "Four Group Orientation",
+            desc = "",
+            order = 6, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
+        },
+        FiveOrientation = {
+            name = "Five Group Orientation",
+            desc = "",
+            order = 7, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
+        },
+        SixOrientation = {
+            name = "Six Group Orientation",
+            desc = "",
+            order = 8, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
+        },
+        SevenOrientation = {
+            name = "Seven Group Orientation",
+            desc = "",
+            order = 9, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
+        },
+        EightOrientation = {
+            name = "Eight Group Orientation",
+            desc = "",
+            order = 10, width = "double",
+            type = "select",
+            values = {
+                ["VERTICAL"] = "Vertical",
+                ["HORIZONTAL"] = "Horizontal",
+            }
         },
         width = {
             name = "Width",
@@ -193,7 +281,7 @@ local options = {
     },
 }
 
-(Plexus or PlexusFrame).options.args.PlexusAutoFrameSize = options;
+Plexus.options.args.PlexusAutoFrameSize = options
 
 local function getRaidSize()
     local maxGroups = 1
@@ -259,44 +347,54 @@ function PlexusAutoFrameSize:CheckRoster() --luacheck: ignore 212
 
     local height
     local width
-
+    local orientation
     local maxGroups = getRaidSize()
+
     if maxGroups == 1 then
         height = PlexusAutoFrameSize.db.profile.height.One
         width = PlexusAutoFrameSize.db.profile.width.One
+        orientation = PlexusAutoFrameSize.db.profile.OneOrientation
     end
     if maxGroups == 2 then
         height = PlexusAutoFrameSize.db.profile.height.Two
         width = PlexusAutoFrameSize.db.profile.width.Two
+        orientation = PlexusAutoFrameSize.db.profile.TwoOrientation
     end
     if maxGroups == 3 then
         height = PlexusAutoFrameSize.db.profile.height.Three
         width = PlexusAutoFrameSize.db.profile.width.Three
+        orientation = PlexusAutoFrameSize.db.profile.ThreeOrientation
     end
     if maxGroups == 4 then
         height = PlexusAutoFrameSize.db.profile.height.Four
         width = PlexusAutoFrameSize.db.profile.width.Four
+        orientation = PlexusAutoFrameSize.db.profile.FourOrientation
     end
     if maxGroups == 5 then
         height = PlexusAutoFrameSize.db.profile.height.Five
         width = PlexusAutoFrameSize.db.profile.width.Five
+        orientation = PlexusAutoFrameSize.db.profile.FiveOrientation
     end
     if maxGroups == 6 then
         height = PlexusAutoFrameSize.db.profile.height.Six
         width = PlexusAutoFrameSize.db.profile.width.Six
+        orientation = PlexusAutoFrameSize.db.profile.SixOrientation
     end
     if maxGroups == 7 then
         height = PlexusAutoFrameSize.db.profile.height.Seven
         width = PlexusAutoFrameSize.db.profile.width.Seven
+        orientation = PlexusAutoFrameSize.db.profile.SevenOrientation
     end
     if maxGroups == 8 then
         height = PlexusAutoFrameSize.db.profile.height.Eight
         width = PlexusAutoFrameSize.db.profile.width.Eight
+        orientation = PlexusAutoFrameSize.db.profile.EightOrientation
     end
 
     if PlexusFrame.db.profile.frameWidth ~= width or  PlexusFrame.db.profile.frameHeight ~= height then
         PlexusFrame.db.profile.frameWidth = width
         PlexusFrame.db.profile.frameHeight = height
+        PlexusFrame.db.profile.orientation = orientation
         PlexusFrame:ResizeAllFrames()
         PlexusFrame:UpdateAllFrames()
         --PlexusLayoutManager:UpdateLayouts("PlexusAutoFrameSize")
