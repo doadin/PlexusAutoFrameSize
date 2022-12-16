@@ -390,11 +390,17 @@ function PlexusAutoFrameSize:CheckRoster() --luacheck: ignore 212
         width = PlexusAutoFrameSize.db.profile.width.Eight
         orientation = PlexusAutoFrameSize.db.profile.EightOrientation
     end
+    if orientation == "HORIZONTAL" then
+        orientation = true
+    end
+    if orientation == "VERTICAL" then
+        orientation = false
+    end
 
     if PlexusFrame.db.profile.frameWidth ~= width or  PlexusFrame.db.profile.frameHeight ~= height then
         PlexusFrame.db.profile.frameWidth = width
         PlexusFrame.db.profile.frameHeight = height
-        PlexusFrame.db.profile.orientation = orientation
+        Layout.db.profile.horizontal = orientation
         PlexusFrame:ResizeAllFrames()
         PlexusFrame:UpdateAllFrames()
         --PlexusLayoutManager:UpdateLayouts("PlexusAutoFrameSize")
