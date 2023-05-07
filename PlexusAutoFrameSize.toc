@@ -10,6 +10,8 @@
 ## Author: Doadin
 ## X-Curse-Project-ID: 418810
 
+## IconTexture: Interface\AddOns\Plexus\Media\icon
+
 #@non-no-lib-strip@
 # ## Title: PlexusAutoFrameSize |cff1784d1[nolibs]|r
 # ## Dependencies: Plexus, Ace3
