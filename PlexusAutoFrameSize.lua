@@ -15,6 +15,7 @@ local Layout = Plexus:GetModule("PlexusLayout")
 
 PlexusAutoFrameSize.defaultDB = {
     enable = false,
+    calculateGroupCountOnMemberAmount = false,
     OneOrientation = "VERTICAL",
     TwoOrientation = "VERTICAL",
     ThreeOrientation = "VERTICAL",
@@ -72,10 +73,16 @@ local options = {
             fontSize = "large",
             type = "description",
         },
+        calculateGroupCountOnMemberAmount = {
+            name = "Calculate group count based on raid member amount",
+            desc = "When enabled ignores actual number of groups and calculates it as a number of raid members divided by 5",
+            order = 3, width = "full",
+            type = "toggle",
+        },
         OneOrientation = {
             name = "One Group Orientation",
             desc = "",
-            order = 3, width = "double",
+            order = 4, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -85,7 +92,7 @@ local options = {
         TwoOrientation = {
             name = "Two Group Orientation",
             desc = "",
-            order = 4, width = "double",
+            order = 5, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -95,7 +102,7 @@ local options = {
         ThreeOrientation = {
             name = "Three Group Orientation",
             desc = "",
-            order = 5, width = "double",
+            order = 6, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -105,7 +112,7 @@ local options = {
         FourOrientation = {
             name = "Four Group Orientation",
             desc = "",
-            order = 6, width = "double",
+            order = 7, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -115,7 +122,7 @@ local options = {
         FiveOrientation = {
             name = "Five Group Orientation",
             desc = "",
-            order = 7, width = "double",
+            order = 8, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -125,7 +132,7 @@ local options = {
         SixOrientation = {
             name = "Six Group Orientation",
             desc = "",
-            order = 8, width = "double",
+            order = 9, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -135,7 +142,7 @@ local options = {
         SevenOrientation = {
             name = "Seven Group Orientation",
             desc = "",
-            order = 9, width = "double",
+            order = 10, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -145,7 +152,7 @@ local options = {
         EightOrientation = {
             name = "Eight Group Orientation",
             desc = "",
-            order = 10, width = "double",
+            order = 11, width = "double",
             type = "select",
             values = {
                 ["VERTICAL"] = "Vertical",
@@ -289,7 +296,7 @@ local function getRaidSize()
 
     if raidSize > 0 then
         maxGroups = ceil(raidSize / 5)
-        if IsInRaid() then
+        if IsInRaid() and not PlexusAutoFrameSize.db.profile.calculateGroupCountOnMemberAmount then
             for i = 1, raidSize do
                 local group = select(3, GetRaidRosterInfo(i))
                 maxGroups = max(maxGroups, group)
